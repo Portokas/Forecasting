@@ -1,0 +1,45 @@
+clear all;
+close all;
+
+filename = 'Your_File_Path';
+sheet = 'Sheet_Number';
+data = readtable(filename, 'Sheet', sheet);
+values = data{:, Column_of_Data};
+
+normalized_values = zscore(values);
+
+n = length(normalized_values);
+
+figure(1);
+plot(normalized_values);
+title('Normalized Trend Component');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
+
+trend_fft = fft(normalized_values);
+
+frequencies = (0:n-1)*(1/n);
+
+cutoff_frequency = 100; 
+trend_fft_filtered = trend_fft;
+trend_fft_filtered(frequencies > cutoff_frequency) = 0;
+
+reconstructed_trend = ifft(trend_fft_filtered, 'symmetric');
+
+forecast_horizon = 30000;
+t_future = (n+1:n+forecast_horizon);
+trend_fft_extended = [trend_fft_filtered; zeros(forecast_horizon, 1)];
+reconstructed_forecast = ifft(trend_fft_extended, 'symmetric');
+
+figure(4);
+hold on;
+plot(1:n, normalized_values, 'b', 'DisplayName', 'Original Trend');
+!plot(1:n, trend_fft, 'g:', 'DisplayName', 'Reconstructed Trend');
+plot(t_future, reconstructed_forecast(n+1:end), 'r--', 'DisplayName', 'Forecast');
+legend show;
+title('Trend Component and Forecast');
+xlabel('Time');
+ylabel('Value');
+hold on
+hold off;
