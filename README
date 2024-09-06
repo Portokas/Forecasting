@@ -1,0 +1,51 @@
+Forecasting Code Using FFT
+This repository contains a MATLAB script for forecasting time series data using Fast Fourier Transform (FFT). The script normalizes the data, analyzes its frequency components, and forecasts future values based on the trend.
+
+Features
+Data Normalization: Z-score normalization is applied to the input data to prepare it for trend analysis.
+Trend Extraction: The script uses FFT to extract the trend component from the data.
+Filtering: A cutoff frequency is applied to filter out high-frequency noise.
+Forecasting: The trend is extended into the future for a specified forecast horizon.
+Prerequisites
+Before running this code, ensure you have the following:
+
+MATLAB installed on your system.
+Input data in a spreadsheet (.xlsx or .csv), containing the time series data in a specific column.
+Usage
+Prepare Your Data:
+
+Organize your data into a table format (e.g., Excel, CSV).
+Ensure that your data is in a specific column that you will reference in the script.
+Edit the Script:
+
+Replace Your_File_Path with the path to your file.
+Set Sheet_Number to the corresponding sheet in your Excel file if applicable.
+Set Column_of_Data to the index number of the column containing your time series data.
+
+filename = 'Your_File_Path';
+sheet = 'Sheet_Number';
+data = readtable(filename, 'Sheet', sheet);
+values = data{:, Column_of_Data};
+
+Run the Script:
+The script normalizes your data, computes the trend using FFT, applies a frequency filter, and generates a future forecast based on the extracted trend.
+Output
+The script generates two figures:
+
+Normalized Trend Component:
+
+A plot of the normalized time series data.
+Trend Component and Forecast:
+
+A plot showing the original trend, reconstructed trend, and future forecast.
+Customization
+Cutoff Frequency: You can change the cutoff frequency for filtering in the code:
+
+cutoff_frequency = 100;
+
+Forecast Horizon: Modify the forecast_horizon to control how many future points to predict:
+
+forecast_horizon = 30000;
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
