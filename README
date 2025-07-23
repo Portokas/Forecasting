@@ -1,51 +1,68 @@
 Forecasting Code Using FFT
-This repository contains a MATLAB script for forecasting time series data using Fast Fourier Transform (FFT). The script normalizes the data, analyzes its frequency components, and forecasts future values based on the trend.
+
+This repository provides a MATLAB script for forecasting time series data using the Fast Fourier Transform (FFT). The approach includes normalization, frequency analysis, noise filtering, and future trend extrapolation.
 
 Features
-Data Normalization: Z-score normalization is applied to the input data to prepare it for trend analysis.
-Trend Extraction: The script uses FFT to extract the trend component from the data.
-Filtering: A cutoff frequency is applied to filter out high-frequency noise.
-Forecasting: The trend is extended into the future for a specified forecast horizon.
+
+- Data Normalization: Applies Z-score normalization to standardize the input data.
+- Trend Extraction: Uses FFT to isolate the dominant trend components in the signal.
+- Noise Filtering: Implements a customizable cutoff frequency to remove high-frequency noise.
+- Forecasting: Extends the identified trend into the future over a defined forecast horizon.
+
 Prerequisites
-Before running this code, ensure you have the following:
 
-MATLAB installed on your system.
-Input data in a spreadsheet (.xlsx or .csv), containing the time series data in a specific column.
-Usage
-Prepare Your Data:
+Before running the script, ensure the following:
 
-Organize your data into a table format (e.g., Excel, CSV).
-Ensure that your data is in a specific column that you will reference in the script.
-Edit the Script:
+- MATLAB is installed on your system.
+- Your time series data is stored in a spreadsheet file (.xlsx or .csv) with the relevant values in a specific column.
 
-Replace Your_File_Path with the path to your file.
-Set Sheet_Number to the corresponding sheet in your Excel file if applicable.
-Set Column_of_Data to the index number of the column containing your time series data.
+How to Use
 
-filename = 'Your_File_Path';
-sheet = 'Sheet_Number';
+1. Prepare Your Data
+
+- Format your time series data as a table (e.g., Excel or CSV file).
+- Make sure the relevant data is located in a specific column.
+
+2. Edit the Script
+
+Update the following variables in the script to match your dataset:
+
+filename = 'Your_File_Path';        % Path to your .xlsx or .csv file
+sheet = 'Sheet_Number';             % Sheet number or name (if using Excel)
 data = readtable(filename, 'Sheet', sheet);
-values = data{:, Column_of_Data};
+values = data{:, Column_of_Data};   % Specify the column index with your time series
 
-Run the Script:
-The script normalizes your data, computes the trend using FFT, applies a frequency filter, and generates a future forecast based on the extracted trend.
+3. Run the Script
+
+- The script will:
+  - Normalize the data.
+  - Extract and reconstruct the trend using FFT.
+  - Apply a frequency-based filter.
+  - Forecast future values based on the trend.
+
 Output
-The script generates two figures:
 
-Normalized Trend Component:
+The script generates two visual outputs:
 
-A plot of the normalized time series data.
-Trend Component and Forecast:
+1. Normalized Time Series
+   - A plot of the Z-score normalized input data.
 
-A plot showing the original trend, reconstructed trend, and future forecast.
+2. Trend and Forecast
+   - A plot displaying:
+     - The original extracted trend,
+     - The reconstructed trend,
+     - The extended future forecast.
+
 Customization
-Cutoff Frequency: You can change the cutoff frequency for filtering in the code:
 
-cutoff_frequency = 100;
+You can tailor the script to your needs by adjusting:
 
-Forecast Horizon: Modify the forecast_horizon to control how many future points to predict:
+- Cutoff Frequency:
+  cutoff_frequency = 100;  % Controls noise filtering sensitivity
 
-forecast_horizon = 30000;
+- Forecast Horizon:
+  forecast_horizon = 30000;  % Number of future time points to predict
 
 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
+This project is licensed under the MIT License. See the LICENSE file for full details.
